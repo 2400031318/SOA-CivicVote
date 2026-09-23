@@ -1,0 +1,85 @@
+package com.civicvote.voting.entity;
+
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(
+    name = "votes",
+    uniqueConstraints = {
+        @UniqueConstraint(
+            name = "unique_voter_election",
+            columnNames = {"voterId", "electionId"}
+        )
+    }
+)
+public class Vote {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private Long voterId;
+
+    @Column(nullable = false)
+    private Long electionId;
+
+    @Column(nullable = false)
+    private Long candidateId;
+
+    @Column(nullable = false)
+    private LocalDateTime votedAt;
+
+    public Vote() {
+    }
+
+    public Vote(Long voterId, Long electionId,
+                Long candidateId, LocalDateTime votedAt) {
+        this.voterId = voterId;
+        this.electionId = electionId;
+        this.candidateId = candidateId;
+        this.votedAt = votedAt;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getVoterId() {
+        return voterId;
+    }
+
+    public void setVoterId(Long voterId) {
+        this.voterId = voterId;
+    }
+
+    public Long getElectionId() {
+        return electionId;
+    }
+
+    public void setElectionId(Long electionId) {
+        this.electionId = electionId;
+    }
+
+    public Long getCandidateId() {
+        return candidateId;
+    }
+
+    public void setCandidateId(Long candidateId) {
+        this.candidateId = candidateId;
+    }
+
+    public LocalDateTime getVotedAt() {
+        return votedAt;
+    }
+
+    public void setVotedAt(LocalDateTime votedAt) {
+        this.votedAt = votedAt;
+    }
+}
